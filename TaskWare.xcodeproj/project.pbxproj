@@ -8,12 +8,18 @@
 
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* TaskWare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskWare.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0000000000000000000120 /* TaskWareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskWareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		000000000000000000000010 /* TaskWare */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TaskWare;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000010 /* TaskWareTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TaskWareTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -31,6 +37,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000010 /* TaskWare */,
+				AA0000000000000000000010 /* TaskWareTests */,
 				000000000000000000000020 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,6 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000120 /* TaskWare.app */,
+				AA0000000000000000000120 /* TaskWareTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,7 +72,44 @@
 			productReference = 000000000000000000000120 /* TaskWare.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AA0000000000000100000000 /* TaskWareTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000110000000 /* Build configuration list for PBXNativeTarget "TaskWareTests" */;
+			buildPhases = (
+				AA0000000000000120000000 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA0000000000000200000000 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AA0000000000000000000010 /* TaskWareTests */,
+			);
+			name = TaskWareTests;
+			productName = TaskWareTests;
+			productReference = AA0000000000000000000120 /* TaskWareTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		AA0000000000000210000000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = TaskWare;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		AA0000000000000200000000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* TaskWare */;
+			targetProxy = AA0000000000000210000000 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		000000000000000000000000 /* Project object */ = {
@@ -94,6 +139,7 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* TaskWare */,
+				AA0000000000000100000000 /* TaskWareTests */,
 			);
 		};
 /* End PBXProject section */
@@ -111,6 +157,13 @@
 			isa = PBXSourcesBuildPhase;
 			files = (
 			);
+		};
+		AA0000000000000120000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -321,6 +374,46 @@
 			};
 			name = Release;
 		};
+		AA0000000000000111000000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.TaskWareTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TaskWare.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TaskWare";
+			};
+			name = Debug;
+		};
+		AA0000000000000112000000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.TaskWareTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TaskWare.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TaskWare";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -338,6 +431,15 @@
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "TaskWare" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "TaskWare" */,
 			);
+			defaultConfigurationName = Release;
+		};
+		AA0000000000000110000000 /* Build configuration list for PBXNativeTarget "TaskWareTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000111000000 /* Debug */,
+				AA0000000000000112000000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
