@@ -28,7 +28,14 @@ struct DashboardView: View {
             .onChange(of: viewModel.query.searchText) { _, _ in Task { await viewModel.applyQuery() } }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Menu { Button("Log Out", role: .destructive, action: onLogout) }
+                    Menu {
+                        Button("Log Out", role: .destructive, action: onLogout)
+                        #if DEBUG
+                        Button("Seed 1,000 tasks") {
+                            Task { await DebugSeeder.seed(1000, into: container.taskRepository, now: Date()); await viewModel.refresh() }
+                        }
+                        #endif
+                    }
                     label: { Image(systemName: "person.circle") }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
