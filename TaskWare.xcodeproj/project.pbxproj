@@ -6,6 +6,16 @@
 	objectVersion = 90;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		AA0000000000000210000000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = TaskWare;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* TaskWare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskWare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0000000000000000000120 /* TaskWareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskWareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,24 +103,6 @@
 		};
 /* End PBXNativeTarget section */
 
-/* Begin PBXContainerItemProxy section */
-		AA0000000000000210000000 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 000000000000000000000000 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 000000000000000100000000;
-			remoteInfo = TaskWare;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXTargetDependency section */
-		AA0000000000000200000000 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 000000000000000100000000 /* TaskWare */;
-			targetProxy = AA0000000000000210000000 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXProject section */
 		000000000000000000000000 /* Project object */ = {
 			isa = PBXProject;
@@ -160,12 +152,18 @@
 		};
 		AA0000000000000120000000 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA0000000000000200000000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* TaskWare */;
+			targetProxy = AA0000000000000210000000 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "TaskWare" */ = {
@@ -313,8 +311,7 @@
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -350,8 +347,7 @@
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -374,7 +370,7 @@
 			};
 			name = Release;
 		};
-		AA0000000000000111000000 /* Debug */ = {
+		AA0000000000000111000000 /* Debug configuration for PBXNativeTarget "TaskWareTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -383,7 +379,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.TaskWareTests";
+				PRODUCT_BUNDLE_IDENTIFIER = devplaceholder.TaskWareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -394,7 +390,7 @@
 			};
 			name = Debug;
 		};
-		AA0000000000000112000000 /* Release */ = {
+		AA0000000000000112000000 /* Release configuration for PBXNativeTarget "TaskWareTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -403,7 +399,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.TaskWareTests";
+				PRODUCT_BUNDLE_IDENTIFIER = devplaceholder.TaskWareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -436,10 +432,9 @@
 		AA0000000000000110000000 /* Build configuration list for PBXNativeTarget "TaskWareTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AA0000000000000111000000 /* Debug */,
-				AA0000000000000112000000 /* Release */,
+				AA0000000000000111000000 /* Debug configuration for PBXNativeTarget "TaskWareTests" */,
+				AA0000000000000112000000 /* Release configuration for PBXNativeTarget "TaskWareTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
