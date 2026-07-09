@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct DashboardView: View {
     @ObservedObject var viewModel: DashboardViewModel
@@ -62,7 +63,10 @@ struct DashboardView: View {
                     ContentUnavailableView.search
                 } else {
                     ForEach(viewModel.tasks) { task in
-                        TaskRow(task: task, now: now) { Task { await viewModel.toggleComplete(task) } }
+                        TaskRow(task: task, now: now) {
+                            UINotificationFeedbackGenerator().notificationOccurred(.success)
+                            Task { await viewModel.toggleComplete(task) }
+                        }
                             .contentShape(Rectangle())
                             .onTapGesture { editorMode = .edit(task) }
                             .swipeActions(edge: .trailing) {
