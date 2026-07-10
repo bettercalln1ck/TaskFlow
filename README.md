@@ -32,6 +32,34 @@ xcodebuild test -project TaskWare.xcodeproj -scheme TaskWare \
 
 There are no dependencies to install — no CocoaPods, SPM packages, or Carthage.
 
+## Testable build
+
+This project was built **without a paid Apple Developer account**, so TestFlight,
+Firebase App Distribution, and ad-hoc `.ipa` distribution (all of which require the
+$99/yr program to install a signed build on someone else's device) are not available.
+Use one of these zero-cost paths to run it:
+
+1. **From source on the simulator (recommended).** Open `TaskWare.xcodeproj`, pick an
+   iOS 26 simulator, and Run. Always works, nothing to sign.
+
+2. **Prebuilt simulator app** — `TaskWare-simulator-app.zip`. Unzip and drag onto a
+   booted iOS 26 simulator, or:
+   ```bash
+   xcrun simctl install booted TaskWare.app
+   xcrun simctl launch booted com.nikhilKumar.TaskWare
+   ```
+   (Apple-silicon Mac + iOS 26 simulator required.)
+
+3. **On a physical iPhone** via free personal signing — set the Team to your Personal
+   Team in Signing & Capabilities, connect your iPhone, and Run (not Archive). The build
+   installs for 7 days (re-run to renew) and only on devices signed into your Apple ID.
+
+4. **Unsigned `.ipa`** — `TaskWare-unsigned.ipa`. Not directly installable; a reviewer
+   sideloads it with their own free Apple ID via AltStore or Sideloadly, which re-signs
+   it to their account.
+
+Paths 1 and 2 are the least-friction ways to verify the app.
+
 ## Architecture overview
 
 **MVVM + Repository + Dependency Injection**, with strictly inward-pointing layers:
