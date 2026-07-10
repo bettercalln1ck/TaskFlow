@@ -12,6 +12,7 @@ struct InsightsHeader: View {
             stat("Overdue", insights.overdue, .red)
         }
         .padding(.horizontal)
+        .padding(.vertical)
     }
 
     private func stat(_ title: String, _ value: Int, _ color: Color) -> some View {
