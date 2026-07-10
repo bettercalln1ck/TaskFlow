@@ -10,13 +10,16 @@ final class DashboardViewModel: ObservableObject {
     @Published var recentlyDeleted: TaskItem?
 
     private let repository: TaskRepository
+    let userID: UUID
     private let notifications: NotificationScheduling
     private let now: @Sendable () -> Date
 
     init(repository: TaskRepository,
          notifications: NotificationScheduling,
+         userID: UUID,
          now: @escaping @Sendable () -> Date = { Date() }) {
         self.repository = repository
+        self.userID = userID
         self.notifications = notifications
         self.now = now
     }
@@ -32,8 +35,8 @@ final class DashboardViewModel: ObservableObject {
 
     private func reload() async {
         do {
-            let fetched = try await repository.fetch(query)
-            let all = try await repository.fetchAll()
+            let fetched = try await repository.fetch(query, for: userID)
+            let all = try await repository.fetchAll(for: userID)
             tasks = fetched
             insights = InsightsCalculator.insights(for: all, asOf: now())
             state = fetched.isEmpty

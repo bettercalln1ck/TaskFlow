@@ -19,13 +19,16 @@ final class TaskEditorViewModel: ObservableObject {
 
     let mode: Mode
     private let repository: TaskRepository
+    let userID: UUID
     private let notifications: NotificationScheduling
     private let now: @Sendable () -> Date
 
     init(mode: Mode, repository: TaskRepository,
-         notifications: NotificationScheduling, now: @escaping @Sendable () -> Date = { Date() }) {
+         notifications: NotificationScheduling, userID: UUID,
+         now: @escaping @Sendable () -> Date = { Date() }) {
         self.mode = mode
         self.repository = repository
+        self.userID = userID
         self.notifications = notifications
         self.now = now
         switch mode {
@@ -67,7 +70,8 @@ final class TaskEditorViewModel: ObservableObject {
         switch mode {
         case .create:
             return TaskItem.make(title: title, details: details, now: now(),
-                                 dueDate: dueDate, priority: priority, category: category)
+                                 dueDate: dueDate, priority: priority, category: category,
+                                 userID: userID)
         case .edit(let original):
             var updated = original
             updated.title = title; updated.details = details; updated.dueDate = dueDate

@@ -2,9 +2,18 @@ import SwiftUI
 import UIKit
 
 struct DashboardView: View {
-    @ObservedObject var viewModel: DashboardViewModel
+    @StateObject private var viewModel: DashboardViewModel
     let container: AppContainer
+    let userID: UUID
     let onLogout: () -> Void
+
+    init(container: AppContainer, userID: UUID, onLogout: @escaping () -> Void) {
+        self.container = container; self.userID = userID; self.onLogout = onLogout
+        _viewModel = StateObject(wrappedValue: DashboardViewModel(
+            repository: container.taskRepository,
+            notifications: container.notificationService,
+            userID: userID))
+    }
 
     @State private var editorMode: TaskEditorViewModel.Mode?
     @State private var now = Date()
@@ -32,7 +41,7 @@ struct DashboardView: View {
                         Button("Log Out", role: .destructive, action: onLogout)
                         #if DEBUG
                         Button("Seed 1,000 tasks") {
-                            Task { await DebugSeeder.seed(1000, into: container.taskRepository, now: Date()); await viewModel.refresh() }
+                            Task { await DebugSeeder.seed(1000, ownerID: userID, into: container.taskRepository, now: Date()); await viewModel.refresh() }
                         }
                         #endif
                     }
@@ -46,7 +55,7 @@ struct DashboardView: View {
             .sheet(item: $editorMode) { mode in
                 TaskEditorView(viewModel: TaskEditorViewModel(
                     mode: mode, repository: container.taskRepository,
-                    notifications: container.notificationService)) {
+                    notifications: container.notificationService, userID: userID)) {
                         Task { await viewModel.refresh() }
                     }
             }

@@ -4,11 +4,13 @@ import XCTest
 @MainActor
 final class DashboardViewModelTests: XCTestCase {
     private let now = Date(timeIntervalSince1970: 1_700_000_000)
+    private let owner = UUID()
 
-    private func makeVM(seed: [TaskItem] = []) -> DashboardViewModel {
-        let repo = InMemoryTaskRepository(now: { self.now }, seed: seed)
+    private func makeVM(seed: [TaskItem] = [], repo: InMemoryTaskRepository? = nil) -> DashboardViewModel {
+        let repo = repo ?? InMemoryTaskRepository(now: { self.now }, seed: seed)
         return DashboardViewModel(repository: repo,
                                   notifications: NoopNotificationService(),
+                                  userID: owner,
                                   now: { self.now })
     }
 
@@ -21,8 +23,8 @@ final class DashboardViewModelTests: XCTestCase {
 
     func testLoadPopulatesTasksAndInsights() async {
         let vm = makeVM(seed: [
-            .make(title: "A", now: now, status: .completed),
-            .make(title: "B", now: now, dueDate: now.addingTimeInterval(-1), status: .pending),
+            .make(title: "A", now: now, status: .completed, userID: owner),
+            .make(title: "B", now: now, dueDate: now.addingTimeInterval(-1), status: .pending, userID: owner),
         ])
         await vm.load()
         XCTAssertEqual(vm.tasks.count, 2)
@@ -32,7 +34,7 @@ final class DashboardViewModelTests: XCTestCase {
     }
 
     func testToggleComplete() async {
-        let t = TaskItem.make(title: "A", now: now, status: .pending)
+        let t = TaskItem.make(title: "A", now: now, status: .pending, userID: owner)
         let vm = makeVM(seed: [t])
         await vm.load()
         await vm.toggleComplete(t)
@@ -40,7 +42,7 @@ final class DashboardViewModelTests: XCTestCase {
     }
 
     func testDeleteThenUndoRestores() async {
-        let t = TaskItem.make(title: "A", now: now)
+        let t = TaskItem.make(title: "A", now: now, userID: owner)
         let vm = makeVM(seed: [t])
         await vm.load()
         await vm.delete(t)
@@ -50,7 +52,7 @@ final class DashboardViewModelTests: XCTestCase {
     }
 
     func testDuplicateAddsCopy() async {
-        let t = TaskItem.make(title: "A", now: now)
+        let t = TaskItem.make(title: "A", now: now, userID: owner)
         let vm = makeVM(seed: [t])
         await vm.load()
         await vm.duplicate(t)
@@ -60,11 +62,23 @@ final class DashboardViewModelTests: XCTestCase {
 
     func testSearchFilters() async {
         let vm = makeVM(seed: [
-            .make(title: "Apple", now: now), .make(title: "Banana", now: now),
+            .make(title: "Apple", now: now, userID: owner), .make(title: "Banana", now: now, userID: owner),
         ])
         await vm.load()
         vm.query.searchText = "app"
         await vm.applyQuery()
         XCTAssertEqual(vm.tasks.map(\.title), ["Apple"])
+    }
+
+    func testLoadsOnlyOwnUsersTasks() async {
+        let other = UUID()
+        let repo = InMemoryTaskRepository(now: { self.now }, seed: [
+            .make(title: "Mine", now: now, userID: owner),
+            .make(title: "Theirs", now: now, userID: other),
+        ])
+        let vm = makeVM(repo: repo)
+        await vm.load()
+        XCTAssertEqual(vm.tasks.map(\.title), ["Mine"])
+        XCTAssertEqual(vm.insights.total, 1)
     }
 }

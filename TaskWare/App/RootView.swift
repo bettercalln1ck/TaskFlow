@@ -3,18 +3,17 @@ import SwiftUI
 struct RootView: View {
     let container: AppContainer
     @StateObject private var auth: AuthViewModel
-    @StateObject private var dashboard: DashboardViewModel
 
     init(container: AppContainer) {
         self.container = container
         _auth = StateObject(wrappedValue: AuthViewModel(authService: container.authService, authStore: container.authStore))
-        _dashboard = StateObject(wrappedValue: DashboardViewModel(repository: container.taskRepository, notifications: container.notificationService))
     }
 
     var body: some View {
         Group {
-            if auth.authenticatedUser != nil {
-                DashboardView(viewModel: dashboard, container: container) { auth.logout() }
+            if let user = auth.authenticatedUser {
+                DashboardView(container: container, userID: user.id, onLogout: { auth.logout() })
+                    .id(user.id)
             } else {
                 LoginView(viewModel: auth)
             }

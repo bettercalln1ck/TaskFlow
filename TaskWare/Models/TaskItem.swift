@@ -2,6 +2,7 @@ import Foundation
 
 struct TaskItem: Identifiable, Equatable, Hashable, Sendable {
     let id: UUID
+    let userID: UUID
     var title: String
     var details: String
     var dueDate: Date?
@@ -27,16 +28,17 @@ struct TaskItem: Identifiable, Equatable, Hashable, Sendable {
         dueDate: Date? = nil,
         priority: TaskPriority = .medium,
         status: TaskStatus = .pending,
-        category: TaskCategory = .other
+        category: TaskCategory = .other,
+        userID: UUID = UUID()
     ) -> TaskItem {
-        TaskItem(id: id, title: title, details: details, dueDate: dueDate,
+        TaskItem(id: id, userID: userID, title: title, details: details, dueDate: dueDate,
                  priority: priority, status: status, category: category,
                  createdAt: now, updatedAt: now)
     }
 
     /// A fresh, pending copy suitable for the "Duplicate" action.
     func duplicated(id: UUID = UUID(), now: Date) -> TaskItem {
-        TaskItem(id: id, title: "\(title) (copy)", details: details, dueDate: dueDate,
+        TaskItem(id: id, userID: userID, title: "\(title) (copy)", details: details, dueDate: dueDate,
                  priority: priority, status: .pending, category: category,
                  createdAt: now, updatedAt: now)
     }

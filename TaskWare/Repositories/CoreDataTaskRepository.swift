@@ -9,12 +9,14 @@ nonisolated final class CoreDataTaskRepository: TaskRepository, @unchecked Senda
         self.now = now
     }
 
-    func fetchAll() async throws -> [TaskItem] { try await fetch(TaskQuery()) }
+    func fetchAll(for owner: UUID) async throws -> [TaskItem] { try await fetch(TaskQuery(), for: owner) }
 
-    func fetch(_ query: TaskQuery) async throws -> [TaskItem] {
+    func fetch(_ query: TaskQuery, for owner: UUID) async throws -> [TaskItem] {
         try await perform { context in
             let request = NSFetchRequest<NSManagedObject>(entityName: TaskModel.entityName)
-            request.predicate = Self.predicate(for: query)
+            let ownerPredicate = NSPredicate(format: "userID == %@", owner as CVarArg)
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates:
+                [Self.predicate(for: query), ownerPredicate].compactMap { $0 })
             request.sortDescriptors = Self.sortDescriptors(for: query.sort)
             return try context.fetch(request).map(Self.item(from:))
         }
@@ -104,6 +106,7 @@ nonisolated final class CoreDataTaskRepository: TaskRepository, @unchecked Senda
 
     private static func apply(_ task: TaskItem, to object: NSManagedObject) {
         object.setValue(task.id, forKey: "id")
+        object.setValue(task.userID, forKey: "userID")
         object.setValue(task.title, forKey: "title")
         object.setValue(task.details, forKey: "details")
         object.setValue(task.dueDate, forKey: "dueDate")
@@ -117,6 +120,7 @@ nonisolated final class CoreDataTaskRepository: TaskRepository, @unchecked Senda
     private static func item(from object: NSManagedObject) -> TaskItem {
         TaskItem(
             id: object.value(forKey: "id") as! UUID,
+            userID: object.value(forKey: "userID") as? UUID ?? UUID(uuid: UUID_NULL),
             title: object.value(forKey: "title") as! String,
             details: object.value(forKey: "details") as! String,
             dueDate: object.value(forKey: "dueDate") as? Date,

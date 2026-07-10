@@ -17,6 +17,7 @@ enum TaskModel {
         }
         entity.properties = [
             attr("id", .UUIDAttributeType, optional: false),
+            attr("userID", .UUIDAttributeType, optional: true),
             attr("title", .stringAttributeType, optional: false),
             attr("details", .stringAttributeType, optional: false),
             attr("dueDate", .dateAttributeType, optional: true),

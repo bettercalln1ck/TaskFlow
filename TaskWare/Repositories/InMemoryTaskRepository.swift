@@ -9,11 +9,12 @@ actor InMemoryTaskRepository: TaskRepository {
         for task in seed { storage[task.id] = task }
     }
 
-    func fetchAll() async throws -> [TaskItem] {
-        TaskQueryEngine.apply(TaskQuery(), to: Array(storage.values), now: now())
+    func fetchAll(for ownerID: UUID) async throws -> [TaskItem] {
+        try await fetch(TaskQuery(), for: ownerID)
     }
-    func fetch(_ query: TaskQuery) async throws -> [TaskItem] {
-        TaskQueryEngine.apply(query, to: Array(storage.values), now: now())
+    func fetch(_ query: TaskQuery, for ownerID: UUID) async throws -> [TaskItem] {
+        let owned = storage.values.filter { $0.userID == ownerID }
+        return TaskQueryEngine.apply(query, to: Array(owned), now: now())
     }
     func task(with id: UUID) async throws -> TaskItem? { storage[id] }
     func create(_ task: TaskItem) async throws { storage[task.id] = task }
